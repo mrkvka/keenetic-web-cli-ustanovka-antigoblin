@@ -1,13 +1,13 @@
-name: Shell
+name: Проверка shell-скрипта
 
 on:
   push:
   pull_request:
 
 jobs:
-  shell:
+  proverka:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Syntax check
+      - name: Проверить синтаксис install.sh
         run: sh -n install.sh
