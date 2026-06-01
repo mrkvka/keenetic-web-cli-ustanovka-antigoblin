@@ -49,7 +49,7 @@ http://192.168.1.1/a
 ### 5. Install AntiGoblin through Web CLI
 
 ```sh
-exec sh -c "/opt/bin/wget -O - https://raw.githubusercontent.com/opengater/opengater-keenetic-antigoblin-installer/main/install.sh | /opt/bin/sh"
+exec sh -c "/opt/bin/wget -O - https://raw.githubusercontent.com/mrkvka/opengater-keenetic-antigoblin-installer/main/install.sh | /opt/bin/sh"
 ```
 
 After installation, open:
@@ -82,7 +82,7 @@ system reboot
 http://192.168.1.1/a
 
 7. Введите:
-exec sh -c "/opt/bin/wget -O - https://raw.githubusercontent.com/opengater/opengater-keenetic-antigoblin-installer/main/install.sh | /opt/bin/sh"
+exec sh -c "/opt/bin/wget -O - https://raw.githubusercontent.com/mrkvka/opengater-keenetic-antigoblin-installer/main/install.sh | /opt/bin/sh"
 
 8. После завершения откройте:
 http://192.168.1.1:8899/
@@ -129,7 +129,7 @@ These commands are handled by KeeneticOS itself.
 2. Entware shell command:
 
 ```sh
-exec sh -c "/opt/bin/wget -O - https://raw.githubusercontent.com/opengater/opengater-keenetic-antigoblin-installer/main/install.sh | /opt/bin/sh"
+exec sh -c "/opt/bin/wget -O - https://raw.githubusercontent.com/mrkvka/opengater-keenetic-antigoblin-installer/main/install.sh | /opt/bin/sh"
 ```
 
 This command asks KeeneticOS to start a shell command. The shell command downloads this repository's `install.sh` and runs it with `/opt/bin/sh`.
@@ -147,7 +147,7 @@ sh -n install.sh
 On a Keenetic device with Entware installed, run from Web CLI:
 
 ```sh
-exec sh -c "/opt/bin/wget -O - https://raw.githubusercontent.com/opengater/opengater-keenetic-antigoblin-installer/main/install.sh | /opt/bin/sh"
+exec sh -c "/opt/bin/wget -O - https://raw.githubusercontent.com/mrkvka/opengater-keenetic-antigoblin-installer/main/install.sh | /opt/bin/sh"
 ```
 
 If `exec sh -c` is unavailable in a specific KeeneticOS build, SSH is the fallback. The whole point of this wrapper is to keep the normal path inside Web CLI.

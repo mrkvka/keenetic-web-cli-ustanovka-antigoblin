@@ -59,7 +59,7 @@ http://192.168.1.1/a
 7. Установите AntiGoblin командой Opengater:
 
 ```sh
-exec sh -c "/opt/bin/wget -O - https://raw.githubusercontent.com/opengater/opengater-keenetic-antigoblin-installer/main/install.sh | /opt/bin/sh"
+exec sh -c "/opt/bin/wget -O - https://raw.githubusercontent.com/mrkvka/opengater-keenetic-antigoblin-installer/main/install.sh | /opt/bin/sh"
 ```
 
 8. После завершения откройте панель:
