@@ -1,8 +1,12 @@
 # Opengater Keenetic AntiGoblin Installer
 
-Install AntiGoblin on Keenetic after the official Entware installer, without asking the user to open SSH.
+Web CLI installation flow for Keenetic Hopper KN-3811:
 
-The user still installs Entware with the official Keenetic/Entware command. AntiGoblin is then installed from Keenetic Web CLI with `exec sh -c`.
+- Entware is installed with the official Keenetic/Entware `opkg disk` command.
+- AntiGoblin is installed with the Opengater wrapper command.
+- The user does not need SSH for the normal path.
+
+The important limitation: `install.sh` cannot install Entware by itself, because it runs inside Entware. Before `opkg disk` finishes, `/opt/bin/sh`, `/opt/bin/wget`, and `/opt/bin/opkg` do not exist yet.
 
 ## User Flow
 
@@ -12,25 +16,25 @@ Open Keenetic Web CLI:
 http://192.168.1.1/a
 ```
 
-Run the official Entware installer:
+### 1. Install official Entware
 
 ```sh
 opkg disk OPKG:/ https://bin.entware.net/aarch64-k3.10/installer/aarch64-installer.tar.gz
 ```
 
-Then run:
+### 2. Set Entware initrc
 
 ```sh
 opkg initrc /opt/etc/init.d/rc.unslung
 ```
 
-Then run:
+### 3. Save Keenetic configuration
 
 ```sh
 system configuration save
 ```
 
-Then reboot:
+### 4. Reboot
 
 ```sh
 system reboot
@@ -42,7 +46,7 @@ Wait 2-5 minutes after reboot. Then open Web CLI again:
 http://192.168.1.1/a
 ```
 
-Install AntiGoblin through Entware shell:
+### 5. Install AntiGoblin through Web CLI
 
 ```sh
 exec sh -c "/opt/bin/wget -O - https://raw.githubusercontent.com/opengater/opengater-keenetic-antigoblin-installer/main/install.sh | /opt/bin/sh"
@@ -51,6 +55,36 @@ exec sh -c "/opt/bin/wget -O - https://raw.githubusercontent.com/opengater/openg
 After installation, open:
 
 ```text
+http://192.168.1.1:8899/
+```
+
+## Telegram-Ready Commands
+
+Send this block to a user. Commands must be entered one by one in `http://192.168.1.1/a`.
+
+```text
+1. Откройте:
+http://192.168.1.1/a
+
+2. Введите:
+opkg disk OPKG:/ https://bin.entware.net/aarch64-k3.10/installer/aarch64-installer.tar.gz
+
+3. После завершения введите:
+opkg initrc /opt/etc/init.d/rc.unslung
+
+4. Потом:
+system configuration save
+
+5. Потом:
+system reboot
+
+6. Подождите 2-5 минут. Снова откройте:
+http://192.168.1.1/a
+
+7. Введите:
+exec sh -c "/opt/bin/wget -O - https://raw.githubusercontent.com/opengater/opengater-keenetic-antigoblin-installer/main/install.sh | /opt/bin/sh"
+
+8. После завершения откройте:
 http://192.168.1.1:8899/
 ```
 
@@ -76,6 +110,31 @@ https://bin.entware.net/aarch64-k3.10/installer/aarch64-installer.tar.gz
 ```
 
 Only AntiGoblin is installed by this wrapper after Entware is already mounted and working.
+
+## How It Works
+
+Keenetic Web CLI has two different worlds:
+
+1. Keenetic commands, for example:
+
+```sh
+opkg disk OPKG:/ https://bin.entware.net/aarch64-k3.10/installer/aarch64-installer.tar.gz
+opkg initrc /opt/etc/init.d/rc.unslung
+system configuration save
+system reboot
+```
+
+These commands are handled by KeeneticOS itself.
+
+2. Entware shell command:
+
+```sh
+exec sh -c "/opt/bin/wget -O - https://raw.githubusercontent.com/opengater/opengater-keenetic-antigoblin-installer/main/install.sh | /opt/bin/sh"
+```
+
+This command asks KeeneticOS to start a shell command. The shell command downloads this repository's `install.sh` and runs it with `/opt/bin/sh`.
+
+That is why Entware must be installed first. The wrapper is intentionally separate from the official Entware installer.
 
 ## Manual Test
 
